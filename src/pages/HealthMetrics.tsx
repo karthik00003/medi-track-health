@@ -158,7 +158,7 @@ export default function HealthMetrics() {
                     }
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
-                    required={metricType !== 'mood'}
+                    required
                     disabled={isLoading}
                   />
                 </div>
@@ -201,7 +201,7 @@ export default function HealthMetrics() {
         </Card>
       </div>
 
-      {getChartData().length > 0 && (
+      {metricType !== 'mood' && getChartData().length > 0 && (
         <Card className="card-health">
           <CardHeader>
             <CardTitle>Trend Analysis</CardTitle>
