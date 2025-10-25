@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,6 +8,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Stethoscope, Send, AlertCircle, Loader2 } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import symptomChatImage from '@/assets/symptom-chat.svg';
 
 export default function SymptomChecker() {
   const { user } = useAuth();
@@ -61,13 +63,28 @@ export default function SymptomChecker() {
 
   return (
     <div className="space-y-6 animate-fade-in pb-20 md:pb-6">
-      <div>
-        <h1 className="text-3xl font-bold flex items-center gap-2">
-          <Stethoscope className="h-8 w-8 text-primary" />
-          AI Symptom Checker
-        </h1>
-        <p className="text-muted-foreground">Get AI-powered guidance for your symptoms</p>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="flex flex-col md:flex-row items-center justify-between gap-6"
+      >
+        <div>
+          <h1 className="text-3xl font-bold flex items-center gap-2">
+            <Stethoscope className="h-8 w-8 text-primary" />
+            AI Symptom Checker
+          </h1>
+          <p className="text-muted-foreground">Get AI-powered guidance for your symptoms</p>
+        </div>
+        <motion.img 
+          src={symptomChatImage} 
+          alt="Symptom Checker" 
+          className="w-48 h-auto float-animation"
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        />
+      </motion.div>
 
       <Alert>
         <AlertCircle className="h-4 w-4" />
@@ -94,7 +111,7 @@ export default function SymptomChecker() {
               rows={5}
               className="resize-none"
             />
-            <Button type="submit" className="w-full" disabled={isLoading || !symptoms.trim()}>
+            <Button type="submit" className="w-full rounded-xl hover:scale-105 transition-all" disabled={isLoading || !symptoms.trim()}>
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

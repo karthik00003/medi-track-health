@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard";
 import HealthMetrics from "./pages/HealthMetrics";
 import Medications from "./pages/Medications";
 import SymptomChecker from "./pages/SymptomChecker";
+import DoctorConsultation from "./pages/DoctorConsultation";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/metrics" element={<Layout><HealthMetrics /></Layout>} />
             <Route path="/medications" element={<Layout><Medications /></Layout>} />
             <Route path="/symptom-checker" element={<Layout><SymptomChecker /></Layout>} />
+            <Route path="/doctors" element={<Layout><DoctorConsultation /></Layout>} />
             <Route path="/profile" element={<Layout><Profile /></Layout>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

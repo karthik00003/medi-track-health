@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,6 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Pill, Plus, Check, X, Calendar } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
+import medicationReminderImage from '@/assets/medication-reminder.svg';
 
 export default function Medications() {
   const { user } = useAuth();
@@ -135,22 +137,37 @@ export default function Medications() {
 
   return (
     <div className="space-y-6 animate-fade-in pb-20 md:pb-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold flex items-center gap-2">
-            <Pill className="h-8 w-8 text-secondary" />
-            Medications
-          </h1>
-          <p className="text-muted-foreground">Manage your medication schedule</p>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="flex justify-between items-center"
+      >
+        <div className="flex items-center gap-6">
+          <div>
+            <h1 className="text-3xl font-bold flex items-center gap-2">
+              <Pill className="h-8 w-8 text-secondary" />
+              Medications
+            </h1>
+            <p className="text-muted-foreground">Manage your medication schedule</p>
+          </div>
+          <motion.img 
+            src={medicationReminderImage} 
+            alt="Medication Reminder" 
+            className="hidden md:block w-24 h-auto float-animation"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          />
         </div>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
-            <Button>
+            <Button className="rounded-xl hover:scale-105 transition-all">
               <Plus className="mr-2 h-4 w-4" />
               Add Medication
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="rounded-2xl">
             <DialogHeader>
               <DialogTitle>Add New Medication</DialogTitle>
               <DialogDescription>Enter the details of your medication</DialogDescription>
@@ -207,12 +224,13 @@ export default function Medications() {
                   />
                 </div>
               </div>
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button type="submit" className="w-full rounded-xl hover:scale-105 transition-all" disabled={isLoading}>
                 Add Medication
               </Button>
             </form>
           </DialogContent>
         </Dialog>
+      </motion.div>
       </div>
 
       <Card className="card-health">

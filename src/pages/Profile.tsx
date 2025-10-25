@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { User, Save, Loader2 } from 'lucide-react';
+import profileAvatarImage from '@/assets/profile-avatar.svg';
 
 export default function Profile() {
   const { user } = useAuth();
@@ -82,13 +84,28 @@ export default function Profile() {
 
   return (
     <div className="space-y-6 animate-fade-in pb-20 md:pb-6">
-      <div>
-        <h1 className="text-3xl font-bold flex items-center gap-2">
-          <User className="h-8 w-8 text-primary" />
-          Profile
-        </h1>
-        <p className="text-muted-foreground">Manage your personal information</p>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="flex flex-col md:flex-row items-center justify-between gap-6"
+      >
+        <div>
+          <h1 className="text-3xl font-bold flex items-center gap-2">
+            <User className="h-8 w-8 text-primary" />
+            Profile
+          </h1>
+          <p className="text-muted-foreground">Manage your personal information</p>
+        </div>
+        <motion.img 
+          src={profileAvatarImage} 
+          alt="Profile" 
+          className="w-32 h-auto float-animation"
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        />
+      </motion.div>
 
       <Card className="card-health max-w-2xl">
         <CardHeader>
@@ -190,7 +207,7 @@ export default function Profile() {
               </div>
             </div>
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button type="submit" className="w-full rounded-xl hover:scale-105 transition-all" disabled={isLoading}>
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

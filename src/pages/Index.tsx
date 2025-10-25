@@ -2,8 +2,9 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Activity, Heart, Pill, Stethoscope, TrendingUp, Shield, BarChart3 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Activity, Pill, Stethoscope, Calendar } from 'lucide-react';
+import homeIllustration from '@/assets/home-illustration.svg';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -26,151 +27,145 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="gradient-primary py-20 px-4">
-        <div className="container max-w-6xl mx-auto text-center text-white">
-          <div className="flex justify-center mb-6">
-            <div className="p-4 bg-white/10 rounded-full backdrop-blur-sm">
-              <Activity className="h-16 w-16" />
+      <section className="container mx-auto px-4 py-12 md:py-20">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="space-y-6"
+          >
+            <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+              HealthNova
+            </h1>
+            <p className="text-2xl md:text-3xl text-primary font-semibold">
+              Your Smart Health Companion
+            </p>
+            <p className="text-lg text-muted-foreground">
+              Track your health metrics, consult with verified doctors, manage medications, 
+              and get AI-powered health guidance—all in one modern, intuitive platform.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <Button
+                size="lg"
+                onClick={() => navigate("/auth")}
+                className="w-full sm:w-auto text-lg px-8 py-6 rounded-2xl gradient-primary hover:opacity-90 transition-all hover:scale-105"
+              >
+                Get Started
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => navigate("/auth")}
+                className="w-full sm:w-auto text-lg px-8 py-6 rounded-2xl hover:scale-105 transition-all"
+              >
+                Sign In
+              </Button>
             </div>
-          </div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            MediTrack
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-2xl mx-auto">
-            Your personal health companion for tracking metrics, managing medications, and getting AI-powered symptom guidance
-          </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Button size="lg" onClick={() => navigate('/auth')} className="bg-white text-primary hover:bg-white/90">
-              Get Started Free
-            </Button>
-            <Button size="lg" variant="outline" onClick={() => navigate('/auth')} className="border-white text-white hover:bg-white/10">
-              Sign In
-            </Button>
-          </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="relative"
+          >
+            <img 
+              src={homeIllustration} 
+              alt="Health tracking illustration" 
+              className="w-full h-auto float-animation"
+            />
+          </motion.div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 bg-background">
-        <div className="container max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Everything You Need for Better Health
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Track, analyze, and improve your health with powerful tools designed for consistency and clarity
-            </p>
-          </div>
+      <section className="bg-muted/30 py-16">
+        <div className="container mx-auto px-4">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-bold text-center mb-12"
+          >
+            Everything You Need for Better Health
+          </motion.h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="card-health">
-              <CardHeader>
-                <div className="p-3 bg-primary/10 rounded-lg w-fit mb-4">
-                  <Heart className="h-8 w-8 text-primary" />
-                </div>
-                <CardTitle>Health Metrics Tracking</CardTitle>
-                <CardDescription>
-                  Log and visualize your vital signs, weight, sleep, steps, and mood with interactive charts
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="text-sm space-y-2 text-muted-foreground">
-                  <li className="flex items-center gap-2">
-                    <BarChart3 className="h-4 w-4 text-primary" />
-                    Visual trend analysis
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-primary" />
-                    Weekly & monthly views
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Shield className="h-4 w-4 text-primary" />
-                    Secure & private
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="card-health">
-              <CardHeader>
-                <div className="p-3 bg-secondary/10 rounded-lg w-fit mb-4">
-                  <Pill className="h-8 w-8 text-secondary" />
-                </div>
-                <CardTitle>Medication Management</CardTitle>
-                <CardDescription>
-                  Never miss a dose with smart reminders and adherence tracking
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="text-sm space-y-2 text-muted-foreground">
-                  <li className="flex items-center gap-2">
-                    <Shield className="h-4 w-4 text-secondary" />
-                    Adherence monitoring
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-secondary" />
-                    Performance insights
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <BarChart3 className="h-4 w-4 text-secondary" />
-                    Weekly reports
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="card-health">
-              <CardHeader>
-                <div className="p-3 bg-accent/10 rounded-lg w-fit mb-4">
-                  <Stethoscope className="h-8 w-8 text-accent" />
-                </div>
-                <CardTitle>AI Symptom Guidance</CardTitle>
-                <CardDescription>
-                  Get instant AI-powered insights about your symptoms and when to seek care
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="text-sm space-y-2 text-muted-foreground">
-                  <li className="flex items-center gap-2">
-                    <Shield className="h-4 w-4 text-accent" />
-                    Evidence-based guidance
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-accent" />
-                    Self-care tips
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <BarChart3 className="h-4 w-4 text-accent" />
-                    Query history
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                icon: Activity,
+                title: "Health Tracking",
+                description: "Monitor vitals, activity, and wellness metrics with beautiful visualizations and insights.",
+                delay: 0
+              },
+              {
+                icon: Calendar,
+                title: "Doctor Consultations",
+                description: "Book appointments with verified healthcare professionals for video, audio, or in-person visits.",
+                delay: 0.1
+              },
+              {
+                icon: Pill,
+                title: "Medication Management",
+                description: "Never miss a dose with smart reminders, adherence tracking, and detailed medication logs.",
+                delay: 0.2
+              },
+              {
+                icon: Stethoscope,
+                title: "AI Health Assistant",
+                description: "Get instant symptom analysis and personalized health guidance powered by advanced AI.",
+                delay: 0.3
+              }
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: feature.delay, duration: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+                className="p-6 rounded-2xl bg-card shadow-md hover:shadow-lg transition-all"
+              >
+                <feature.icon className="h-12 w-12 text-primary mb-4" />
+                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                <p className="text-muted-foreground">{feature.description}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="gradient-secondary py-20 px-4">
-        <div className="container max-w-4xl mx-auto text-center text-white">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+      <section className="container mx-auto px-4 py-16 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-2xl mx-auto space-y-6"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold">
             Start Your Health Journey Today
           </h2>
-          <p className="text-lg mb-8 text-white/90">
-            Join thousands of users taking control of their health with MediTrack
+          <p className="text-lg text-muted-foreground">
+            Join thousands of users who trust HealthNova to manage their health and wellness.
           </p>
-          <Button size="lg" onClick={() => navigate('/auth')} className="bg-white text-primary hover:bg-white/90">
-            <Activity className="mr-2 h-5 w-5" />
-            Get Started - It's Free
+          <Button
+            size="lg"
+            onClick={() => navigate("/auth")}
+            className="text-lg px-8 py-6 rounded-2xl gradient-primary hover:opacity-90 transition-all hover:scale-105"
+          >
+            Create Free Account
           </Button>
-        </div>
+        </motion.div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-4 border-t bg-background">
+      <footer className="py-8 px-4 border-t bg-muted/20">
         <div className="container max-w-6xl mx-auto text-center text-muted-foreground">
           <p className="text-sm">
-            © 2025 MediTrack. Your personal health companion.
+            © 2025 HealthNova. Your Smart Health Companion.
           </p>
           <p className="text-xs mt-2">
             This app provides general health information only and is not a substitute for professional medical advice.
